@@ -22,7 +22,7 @@ public class Prefix extends CommandHandler {
 
     public Prefix() {
         super("prefix", "prefix.cmd.prefix");
-        setSubcommands(Arrays.asList("help", "chat", "tab", "chatnamecolor", "tabnamecolor", "chatcolor", "weight", "group", "reload"));
+        setSubcommands(Arrays.asList("help", "chat", "tab", "chatnamecolor", "tabnamecolor", "chatcolor", "weight", "group", "reload", "info"));
         this.data = PrefixModule.getData();
     }
 
