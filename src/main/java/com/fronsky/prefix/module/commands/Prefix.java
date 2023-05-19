@@ -126,7 +126,7 @@ public class Prefix extends CommandHandler {
 
     public void chat(@NonNull CommandSender sender, @NonNull String label, @NonNull String[] args) {
         if (args.length < 2) {
-            sender.sendMessage(ChatColor.RED + "Invalid command format, use /prefix chat [group] [prefix].");
+            sender.sendMessage(ChatColor.RED + "Invalid command format. Usage: /prefix chat <group> <prefix>");
             return;
         }
         final StringBuilder prefix = new StringBuilder();
@@ -137,12 +137,12 @@ public class Prefix extends CommandHandler {
         }
         final PGroup pgroup = new PGroup(args[0], this.data);
         pgroup.setChatPrefix(String.valueOf(prefix));
-        sender.sendMessage(ChatColor.GREEN + "Chatprefix for group '" + pgroup.getName() + "' changed successfully.");
+        sender.sendMessage(ChatColor.GREEN + "Successfully changed chat prefix for group '" + pgroup.getName() + "'.");
     }
 
     public void tab(@NonNull CommandSender sender, @NonNull String label, @NonNull String[] args) {
         if (args.length < 2) {
-            sender.sendMessage(ChatColor.RED + "Invalid command format, use /prefix tab [group] [prefix].");
+            sender.sendMessage(ChatColor.RED + "Invalid command format. Usage: /prefix tab <group> <prefix>");
             return;
         }
         final StringBuilder prefix = new StringBuilder();
@@ -153,7 +153,7 @@ public class Prefix extends CommandHandler {
         }
         final PGroup pgroup = new PGroup(args[0], this.data);
         pgroup.setTabPrefix(String.valueOf(prefix));
-        sender.sendMessage(ChatColor.GREEN + "Tabprefix for group '" + pgroup.getName() + "' changed successfully.");
+        sender.sendMessage(ChatColor.GREEN + "Successfully changed tab prefix for group '" + pgroup.getName() + "'.");
         for (final Player player : Bukkit.getOnlinePlayers()) {
             this.data.getTablist().update(new PPlayer(player, this.data));
         }
@@ -161,7 +161,7 @@ public class Prefix extends CommandHandler {
 
     public void chatnamecolor(@NonNull CommandSender sender, @NonNull String label, @NonNull String[] args) {
         if (args.length < 2) {
-            sender.sendMessage(ChatColor.RED + "Invalid command format, use /prefix chatnamecolor [group] [color].");
+            sender.sendMessage(ChatColor.RED + "Invalid command format. Usage: /prefix chatnamecolor <group> <color>");
             return;
         }
         final PGroup pgroup = new PGroup(args[0], this.data);
@@ -171,12 +171,12 @@ public class Prefix extends CommandHandler {
             return;
         }
         pgroup.setChatNameColor(result.Value());
-        sender.sendMessage(ChatColor.GREEN + "Chatnamecolor for group '" + pgroup.getName() + "' changed successfully.");
+        sender.sendMessage(ChatColor.GREEN + "Successfully changed chat name color for group '" + pgroup.getName() + "'.");
     }
 
     public void tabnamecolor(@NonNull CommandSender sender, @NonNull String label, @NonNull String[] args) {
         if (args.length < 2) {
-            sender.sendMessage(ChatColor.RED + "Invalid command format, use /prefix tabnamecolor [group] [color].");
+            sender.sendMessage(ChatColor.RED + "Invalid command format. Usage: /prefix tabnamecolor <group> <color>");
             return;
         }
         final PGroup pgroup = new PGroup(args[0], this.data);
@@ -186,7 +186,7 @@ public class Prefix extends CommandHandler {
             return;
         }
         pgroup.setTabNameColor(result.Value());
-        sender.sendMessage(ChatColor.GREEN + "Tabnamecolor for group '" + pgroup.getName() + "' changed successfully.");
+        sender.sendMessage(ChatColor.GREEN + "Successfully changed tab name color for group '" + pgroup.getName() + "'.");
         for (final Player player : Bukkit.getOnlinePlayers()) {
             this.data.getTablist().update(new PPlayer(player, this.data));
         }
@@ -194,7 +194,7 @@ public class Prefix extends CommandHandler {
 
     public void chatcolor(@NonNull CommandSender sender, @NonNull String label, @NonNull String[] args) {
         if (args.length < 2) {
-            sender.sendMessage(ChatColor.RED + "Invalid command format, use /prefix chatcolor [group] [color].");
+            sender.sendMessage(ChatColor.RED + "Invalid command format. Usage: /prefix chatcolor <group> <color>");
             return;
         }
         final PGroup pgroup = new PGroup(args[0], this.data);
@@ -204,25 +204,24 @@ public class Prefix extends CommandHandler {
             return;
         }
         pgroup.setChatColor(result.Value());
-        sender.sendMessage(ChatColor.GREEN + "Chatcolor for group '" + pgroup.getName() + "' changed successfully.");
+        sender.sendMessage(ChatColor.GREEN + "Successfully changed chat color for group '" + pgroup.getName() + "'.");
     }
 
     public void weight(@NonNull CommandSender sender, @NonNull String label, @NonNull String[] args) {
         if (args.length < 2) {
-            sender.sendMessage(ChatColor.RED + "Invalid command format, use /prefix weight [group] [weight].");
+            sender.sendMessage(ChatColor.RED + "Invalid command format. Usage: /prefix weight <group> <weight>");
             return;
         }
         int weight = 0;
         try {
             weight = Integer.parseInt(args[1]);
-        }
-        catch (Exception exception) {
-            sender.sendMessage(ChatColor.RED + "Invalid number format, please enter a valid number from 0-9.");
+        } catch (Exception exception) {
+            sender.sendMessage(ChatColor.RED + "Invalid number format. Please enter a valid number from 0-9.");
             return;
         }
         final PGroup pgroup = new PGroup(args[0], this.data);
         pgroup.setTabWeight(weight);
-        sender.sendMessage(ChatColor.GREEN + "Tabweight for group '" + pgroup.getName() + "' changed successfully.");
+        sender.sendMessage(ChatColor.GREEN + "Successfully changed tab weight for group '" + pgroup.getName() + "'.");
         for (final Player player : Bukkit.getOnlinePlayers()) {
             this.data.getTablist().update(new PPlayer(player, this.data));
         }
@@ -237,20 +236,19 @@ public class Prefix extends CommandHandler {
                 if (!pplayer.getGroup().Success()) {
                     new PGroup(args[0], this.data);
                 }
-                sender.sendMessage(ChatColor.GREEN + "Group for '" + pplayer.getPlayer().getDisplayName() + "' changed successfully.");
+                sender.sendMessage(ChatColor.GREEN + "Successfully changed group for '" + pplayer.getPlayer().getDisplayName() + "'.");
                 return;
             }
-            sender.sendMessage(ChatColor.RED + "You did not use the correct format, please use /prefix group [player | group] [group | empty].");
-        }
-        else {
+            sender.sendMessage(ChatColor.RED + "Incorrect format. Usage: /prefix group <player or group> <group or empty>");
+        } else {
             final Player player = Bukkit.getPlayer(args[0]);
             if (player == null) {
-                sender.sendMessage(ChatColor.RED + "Player was not found, please ensure that the player is online.");
+                sender.sendMessage(ChatColor.RED + "Player not found. Please ensure that the player is online.");
                 return;
             }
             final PPlayer pplayer = new PPlayer(player, this.data);
             pplayer.setGroup(args[1]);
-            sender.sendMessage(ChatColor.GREEN + "Group for '" + pplayer.getPlayer().getDisplayName() + "' changed successfully.");
+            sender.sendMessage(ChatColor.GREEN + "Successfully changed group for '" + pplayer.getPlayer().getDisplayName() + "'.");
         }
     }
 
@@ -260,7 +258,7 @@ public class Prefix extends CommandHandler {
         for (final Player player : Bukkit.getOnlinePlayers()) {
             this.data.getTablist().update(new PPlayer(player, this.data));
         }
-        sender.sendMessage(ChatColor.GREEN + "Prefix has successfully been reloaded.");
+        sender.sendMessage(ChatColor.GREEN + "Prefix has been reloaded successfully.");
     }
 
     public void info(@NonNull CommandSender sender, @NonNull String label, @NonNull String[] args) {
