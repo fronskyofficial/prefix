@@ -1,0 +1,11 @@
+name: '${plugin_name}'
+version: '${plugin_version}'
+main: '${plugin_main_class}'
+api-version: 1.13
+authors: ['Fronsky Inc']
+website: 'https://fronsky.com/resources/prefix'
+description: 'This is the Fronsky Prefix plugin.'
+
+commands:
+  prefix:
+    permission: 'prefix.cmd.prefix'
