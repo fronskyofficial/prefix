@@ -22,12 +22,12 @@ public class PGroup {
         this.data = data;
         final FileConfiguration groups = data.getGroups().get();
         if (!groups.contains(name)) {
-            groups.set(name + ".chatPrefix", (Object)"");
-            groups.set(name + ".tabPrefix", (Object)"");
-            groups.set(name + ".chatNameColor", (Object)"&7");
-            groups.set(name + ".tabNameColor", (Object)"&7");
-            groups.set(name + ".chatColor", (Object)"&7");
-            groups.set(name + ".tabWeight", (Object)0);
+            groups.set(name + ".chatPrefix", "");
+            groups.set(name + ".tabPrefix", "");
+            groups.set(name + ".chatNameColor", "&7");
+            groups.set(name + ".tabNameColor", "&7");
+            groups.set(name + ".chatColor", "&7");
+            groups.set(name + ".tabWeight", 0);
             data.getGroups().save();
         }
         this.chatPrefix = groups.getString(name + ".chatPrefix");

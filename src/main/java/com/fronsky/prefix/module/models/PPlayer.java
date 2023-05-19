@@ -36,9 +36,10 @@ public class PPlayer {
 
     public Result<PGroup> getGroup() {
         if (!this.data.getGroups().get().contains(this.groupName)) {
-            return Result.Fail(new Exception("The group does not exist."));
+            new PGroup(groupName, data);
+            return new Result<>(null, new Exception("The group does not exist."));
         }
-        return Result.Ok(new PGroup(this.groupName, this.data));
+        return new Result<>(new PGroup(this.groupName, this.data), null);
     }
 
     public void setPlayer(final Player player) {
