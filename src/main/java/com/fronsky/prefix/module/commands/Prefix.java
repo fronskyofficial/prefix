@@ -3,10 +3,13 @@ package com.fronsky.prefix.module.commands;
 import com.fronsky.prefix.logic.command.CommandHandler;
 import com.fronsky.prefix.logic.utils.Result;
 import com.fronsky.prefix.module.PrefixModule;
+import com.fronsky.prefix.module.commands.help.HelpMessage;
 import com.fronsky.prefix.module.data.Data;
 import com.fronsky.prefix.module.models.PGroup;
 import com.fronsky.prefix.module.models.PPlayer;
 import lombok.NonNull;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.CommandSender;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -52,14 +55,15 @@ public class Prefix extends CommandHandler {
             return true;
         }
         final PGroup pgroup = result.Value();
-        sender.sendMessage(ChatColor.YELLOW + "Prefix for player " + pplayer.getPlayer().getDisplayName());
-        player.sendMessage(ChatColor.WHITE + "Player: " + pplayer.getPlayer().getDisplayName());
+        player.sendMessage(ChatColor.WHITE + "<---------------" + ChatColor.DARK_RED + "Prefix Player Info" + ChatColor.WHITE + "--------------->");
+        player.sendMessage(ChatColor.WHITE + "Player: " + ChatColor.GRAY + pplayer.getPlayer().getDisplayName());
         player.sendMessage(ChatColor.WHITE + "Chatprefix: " + pgroup.getChatPrefix());
         player.sendMessage(ChatColor.WHITE + "Tabprefix: " + pgroup.getTabPrefix());
         player.sendMessage(ChatColor.WHITE + "Chatnamecolor: " + pgroup.getChatNameColor() + pgroup.getChatNameColor().name());
         player.sendMessage(ChatColor.WHITE + "Tabnamecolor: " + pgroup.getTabNameColor() + pgroup.getTabNameColor().name());
         player.sendMessage(ChatColor.WHITE + "Chatcolor: " + pgroup.getChatColor() + pgroup.getChatColor().name());
-        player.sendMessage(ChatColor.WHITE + "Group: " + pgroup.getName());
+        player.sendMessage(ChatColor.WHITE + "Group: " + ChatColor.GRAY + pgroup.getName());
+        player.sendMessage(ChatColor.WHITE + "<---------------------------------------->");
         return true;
     }
 
@@ -76,39 +80,48 @@ public class Prefix extends CommandHandler {
             return;
         }
         final PGroup pgroup = result.Value();
-        sender.sendMessage(ChatColor.YELLOW + "Prefix for player " + pplayer.getPlayer().getDisplayName());
-        sender.sendMessage(ChatColor.WHITE + "Player: " + pplayer.getPlayer().getDisplayName());
+        sender.sendMessage(ChatColor.WHITE + "<---------------" + ChatColor.DARK_RED + "Prefix Player Info" + ChatColor.WHITE + "--------------->");
+        sender.sendMessage(ChatColor.WHITE + "Player: " + ChatColor.GRAY + pplayer.getPlayer().getDisplayName());
         sender.sendMessage(ChatColor.WHITE + "Chatprefix: " + pgroup.getChatPrefix());
         sender.sendMessage(ChatColor.WHITE + "Tabprefix: " + pgroup.getTabPrefix());
         sender.sendMessage(ChatColor.WHITE + "Chatnamecolor: " + pgroup.getChatNameColor() + pgroup.getChatNameColor().name());
         sender.sendMessage(ChatColor.WHITE + "Tabnamecolor: " + pgroup.getTabNameColor() + pgroup.getTabNameColor().name());
         sender.sendMessage(ChatColor.WHITE + "Chatcolor: " + pgroup.getChatColor() + pgroup.getChatColor().name());
-        sender.sendMessage(ChatColor.WHITE + "Group: " + pgroup.getName());
+        sender.sendMessage(ChatColor.WHITE + "Group: " + ChatColor.GRAY + pgroup.getName());
+        sender.sendMessage(ChatColor.WHITE + "<---------------------------------------->");
     }
 
     public void help(@NonNull CommandSender sender, @NonNull String label, @NonNull String[] args) {
-        sender.sendMessage(ChatColor.YELLOW + "Prefix Help:");
-        sender.sendMessage(ChatColor.GRAY + "/prefix - Displays your prefix information (prefix.prefix)");
-        sender.sendMessage("");
-        sender.sendMessage(ChatColor.GRAY + "/prefix [player] - Displays prefix information for the specified player (prefix.prefix.others)");
-        sender.sendMessage("");
-        sender.sendMessage(ChatColor.GRAY + "/prefix help - Displays this help message (prefix.prefix.help)");
-        sender.sendMessage("");
-        sender.sendMessage(ChatColor.GRAY + "/prefix chat [group] [prefix] - Sets the chat prefix for the specified group (prefix.prefix.chat)");
-        sender.sendMessage("");
-        sender.sendMessage(ChatColor.GRAY + "/prefix tab [group] [prefix] - Sets the tab prefix for the specified group (prefix.prefix.tab)");
-        sender.sendMessage("");
-        sender.sendMessage(ChatColor.GRAY + "/prefix chatnamecolor [group] [color] - Sets the chat name color for the specified group (prefix.prefix.chatnamecolor)");
-        sender.sendMessage("");
-        sender.sendMessage(ChatColor.GRAY + "/prefix tabnamecolor [group] [color] - Sets the tab name color for the specified group (prefix.prefix.tabnamecolor)");
-        sender.sendMessage("");
-        sender.sendMessage(ChatColor.GRAY + "/prefix chatcolor [group] [color] - Sets the chat color for the specified group (prefix.prefix.chatcolor)");
-        sender.sendMessage("");
-        sender.sendMessage(ChatColor.GRAY + "/prefix weight [group] [weight] - Sets the tab weight for the specified group (prefix.prefix.weight)");
-        sender.sendMessage("");
-        sender.sendMessage(ChatColor.GRAY + "/prefix group [player | group] [group | empty] - Sets the group for the specified player or group");
-        sender.sendMessage("");
-        sender.sendMessage(ChatColor.GRAY + "/prefix reload - Reloads the configuration files (prefix.prefix.reload)");
+        sender.sendMessage(ChatColor.WHITE + "<---------------" + ChatColor.DARK_RED + "Prefix Help" + ChatColor.WHITE + "--------------->");
+        sender.sendMessage(ChatColor.YELLOW + "Aliases:" + ChatColor.GRAY + ChatColor.ITALIC + "None");
+        sender.sendMessage(ChatColor.YELLOW + "Commands: ");
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
+            HelpMessage.prefixCommand(player);
+            HelpMessage.prefixPlayerCommand(player);
+            HelpMessage.prefixHelpCommand(player);
+            HelpMessage.prefixChatCommand(player);
+            HelpMessage.prefixTabCommand(player);
+            HelpMessage.prefixChatNameColorCommand(player);
+            HelpMessage.prefixTabNameColorCommand(player);
+            HelpMessage.prefixChatColorCommand(player);
+            HelpMessage.prefixWeightCommand(player);
+            HelpMessage.prefixGroupCommand(player);
+            HelpMessage.prefixReloadCommand(player);
+        } else {
+            sender.sendMessage(ChatColor.GRAY + "- /prefix");
+            sender.sendMessage(ChatColor.GRAY + "- /prefix <player>");
+            sender.sendMessage(ChatColor.GRAY + "- /prefix help");
+            sender.sendMessage(ChatColor.GRAY + "- /prefix chat <group> <prefix>");
+            sender.sendMessage(ChatColor.GRAY + "- /prefix tab <group> <prefix>");
+            sender.sendMessage(ChatColor.GRAY + "- /prefix chatnamecolor <group> <color>");
+            sender.sendMessage(ChatColor.GRAY + "- /prefix tabnamecolor <group> <color>");
+            sender.sendMessage(ChatColor.GRAY + "- /prefix chatcolor <group> <color>");
+            sender.sendMessage(ChatColor.GRAY + "- /prefix weight <group> <weight>");
+            sender.sendMessage(ChatColor.GRAY + "- /prefix group <player or group> <group or empty>");
+            sender.sendMessage(ChatColor.GRAY + "- /prefix reload");
+        }
+        sender.sendMessage(ChatColor.WHITE + "<---------------------------------------->");
     }
 
     public void chat(@NonNull CommandSender sender, @NonNull String label, @NonNull String[] args) {
@@ -248,5 +261,29 @@ public class Prefix extends CommandHandler {
             this.data.getTablist().update(new PPlayer(player, this.data));
         }
         sender.sendMessage(ChatColor.GREEN + "Prefix has successfully been reloaded.");
+    }
+
+    public void info(@NonNull CommandSender sender, @NonNull String label, @NonNull String[] args) {
+        sender.sendMessage(ChatColor.WHITE + "<---------------" + ChatColor.DARK_RED + "Prefix Info" + ChatColor.WHITE + "--------------->");
+        sender.sendMessage(ChatColor.YELLOW + "Name: " + ChatColor.WHITE + "Prefix");
+        sender.sendMessage(ChatColor.YELLOW + "Author: " + ChatColor.GRAY + "Fronsky Inc");
+
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
+
+            TextComponent plugin = new TextComponent(ChatColor.YELLOW + "Plugin: " + ChatColor.GRAY + "www.fronsky.com/resources/prefix");
+            plugin.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.fronsky.com/resources/prefix"));
+
+            TextComponent website = new TextComponent(ChatColor.YELLOW + "Website: " + ChatColor.GRAY + "www.fronsky.com");
+            website.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.fronsky.com"));
+
+            player.spigot().sendMessage(plugin);
+            player.spigot().sendMessage(website);
+        } else {
+            sender.sendMessage(ChatColor.YELLOW + "Plugin: " + ChatColor.GRAY + "www.fronsky.com/resources/prefix");
+            sender.sendMessage(ChatColor.YELLOW + "Website: " + ChatColor.GRAY + "www.fronsky.com");
+        }
+        sender.sendMessage(ChatColor.YELLOW + "Version: " + ChatColor.RED + data.getPlugin().getDescription().getVersion());
+        sender.sendMessage(ChatColor.WHITE + "<---------------------------------------->");
     }
 }
