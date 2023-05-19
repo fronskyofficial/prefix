@@ -93,7 +93,7 @@ public class Prefix extends CommandHandler {
 
     public void help(@NonNull CommandSender sender, @NonNull String label, @NonNull String[] args) {
         sender.sendMessage(ChatColor.WHITE + "<---------------" + ChatColor.DARK_RED + "Prefix Help" + ChatColor.WHITE + "--------------->");
-        sender.sendMessage(ChatColor.YELLOW + "Aliases:" + ChatColor.GRAY + ChatColor.ITALIC + "None");
+        sender.sendMessage(ChatColor.YELLOW + "Aliases: " + ChatColor.GRAY + ChatColor.ITALIC + "None");
         sender.sendMessage(ChatColor.YELLOW + "Commands: ");
         if (sender instanceof Player) {
             Player player = (Player) sender;
@@ -233,9 +233,6 @@ public class Prefix extends CommandHandler {
                 final Player player = (Player)sender;
                 final PPlayer pplayer = new PPlayer(player, this.data);
                 pplayer.setGroup(args[0]);
-                if (!pplayer.getGroup().Success()) {
-                    new PGroup(args[0], this.data);
-                }
                 sender.sendMessage(ChatColor.GREEN + "Successfully changed group for '" + pplayer.getPlayer().getDisplayName() + "'.");
                 return;
             }
