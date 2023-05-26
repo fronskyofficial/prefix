@@ -8,6 +8,7 @@ import com.fronsky.prefix.logic.file.IFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -73,9 +74,14 @@ public class YmlFile implements IFile<FileConfiguration> {
         }
 
         this.configuration = YamlConfiguration.loadConfiguration(file);
-        InputStreamReader streamReader = new InputStreamReader(plugin.getResource(fileName), StandardCharsets.UTF_8);
-        YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(streamReader);
-        configuration.setDefaults(yamlConfiguration);
+
+        this.configuration = YamlConfiguration.loadConfiguration(this.file);
+        final InputStream stream = this.plugin.getResource(this.fileName);
+        if (stream != null) {
+            final InputStreamReader streamReader = new InputStreamReader(stream, StandardCharsets.UTF_8);
+            final YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(streamReader);
+            this.configuration.setDefaults(yamlConfiguration);
+        }
     }
 
     @Override
